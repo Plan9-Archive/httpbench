@@ -51,6 +51,7 @@ main()
 			handler(fd);
 			exit(0);
 		default:
+			close(fd);
 			break;
 		}
 	}
