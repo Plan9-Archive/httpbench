@@ -47,7 +47,6 @@ main()
 			close(fd);
 			break;
 		case 0:
-			printf("starting a handler\n");
 			handler(fd);
 			exit(0);
 		default:
