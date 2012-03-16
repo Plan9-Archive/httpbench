@@ -11,7 +11,9 @@
 	W Richard Stevens.
 */
 
-int Readline(int sockd, void *vptr, int maxlen) {
+int 
+readline(int sockd, void *vptr, int maxlen) 
+{
     int n, rc;
     char    c, *buffer;
 
@@ -36,13 +38,58 @@ int Readline(int sockd, void *vptr, int maxlen) {
     return n;
 }
 
+int writeline(int sockd, const void *vptr, int n) {
+    int      nleft;
+    int     nwritten;
+    const char *buffer;
+
+    buffer = vptr;
+    nleft  = n;
+
+    while ( nleft > 0 ) {
+	if ( (nwritten = write(sockd, buffer, nleft)) <= 0 ) {
+		exits("Error in writeline()");
+	}
+	nleft  -= nwritten;
+	buffer += nwritten;
+    }
+
+    return n;
+}
+
 /*  Removes trailing whitespace from a string, also shamelessly ripped from Griffith  */
 
-int Trim(char * buffer) {
+int 
+trim(char * buffer) 
+{
     int n = strlen(buffer) - 1;
 
     while ( !isalnum(buffer[n]) && n >= 0 )
 	buffer[n--] = '\0';
 
     return 0;
+}
+
+/*  Cleans up url-encoded string... guess where this function originates ☺  */
+	
+void 
+cleanURL(char * buffer) 
+{
+    char asciinum[3] = {0};
+    int i = 0, c;
+    
+    while ( buffer[i] ) {
+	if ( buffer[i] == '+' )
+	    buffer[i] = ' ';
+	else if ( buffer[i] == '%' ) {
+	    asciinum[0] = buffer[i+1];
+	    asciinum[1] = buffer[i+2];
+	    buffer[i] = strtol(asciinum, 0, 16);
+	    c = i+1;
+	    do {
+		buffer[c] = buffer[c+2];
+	    } while ( buffer[2+(c++)] );
+	}
+	++i;
+    }
 }
