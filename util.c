@@ -1,8 +1,14 @@
+#ifdef PLAN9
 #include <u.h>
 #include <libc.h>
 #include <ctype.h>
-#include <fns.h>
+#else
+#include <stdio.h>
+#include <linux.h>
+#endif
+
 #include <dat.h>
+#include <fns.h>
 
 /*  Read a line from a network connection  */
 /*
