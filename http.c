@@ -5,11 +5,15 @@
 #else
 #include <stdio.h>
 #include <string.h>
-#include <linux.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "linux.h"
 #endif
 
-#include <dat.h>
-#include <fns.h>
+#include "dat.h"
+#include "fns.h"
 
 int
 parse(char *buf, Request *req)

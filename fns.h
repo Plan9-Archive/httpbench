@@ -1,5 +1,5 @@
 int readline(int sockd, void *vptr, int maxlen);
-int writeline(int sockd, void *vptr, int maxlen);
+int writeline(int sockd, const void *vptr, int maxlen);
 int trim(char* buffer);
 void cleanURL(char* buffer);
 int parse(char *buf, Request *req);

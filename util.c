@@ -4,11 +4,12 @@
 #include <ctype.h>
 #else
 #include <stdio.h>
-#include <linux.h>
+#include <string.h>
+#include "linux.h"
 #endif
 
-#include <dat.h>
-#include <fns.h>
+#include "dat.h"
+#include "fns.h"
 
 /*  Read a line from a network connection  */
 /*

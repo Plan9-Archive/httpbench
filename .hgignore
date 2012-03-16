@@ -1,3 +1,5 @@
 syntax: glob
 *.out
 *.8
+httpbench
+*.o
