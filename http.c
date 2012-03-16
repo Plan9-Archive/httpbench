@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "linux.h"
 #endif
 
@@ -67,9 +68,13 @@ reqinit(Request *req)
 int
 openresource(Request *req)
 {
+	char *path;
+
+	path = calloc(MaxLineLen, sizeof(char));
 	cleanURL(req->resource);
-	strcat(root, req->resource);
-	return open(root, OREAD);
+	strcat(path, root);
+	strcat(path, req->resource);
+	return open(path, OREAD);
 }
 
 void
@@ -140,11 +145,9 @@ handler(int fd)
 			break;
 	} while (req.type != SIMPLE);
 	alarm(0);
-
 	rfd = openresource(&req); // make sure the resource exists
 	if (rfd < 0)
 		req.status = 404;
-
 	if (req.type == FULL)
 		outputheaders(fd, &req);
 
@@ -154,5 +157,6 @@ handler(int fd)
 	} else {
 		senderror(fd, &req);
 	}
+	close(fd);
 	exits(0);
 }

@@ -12,13 +12,6 @@
 int sock;
 
 void
-sigcatch(int blah)
-{
-        printf("caught interrupt, dying\n");
-        close(sock);
-}
-
-void
 main()
 {
 	int fd;
@@ -31,7 +24,6 @@ main()
 		exit(-1);
 	}
 	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
-	signal(SIGINT, (void*)sigcatch);
 
 	memset(&servaddr, 0, sizeof(servaddr));
 	servaddr.sin_family = AF_INET;
@@ -55,6 +47,7 @@ main()
 			close(fd);
 			break;
 		case 0:
+			printf("starting a handler\n");
 			handler(fd);
 			exit(0);
 		default:

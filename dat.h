@@ -1,4 +1,8 @@
+#ifdef PLAN9
 #define TIMEOUT 10000	// wait 10 seconds. This should be defined to "10" for Linux (see alarm(2))
+#else
+#define TIMEOUT 10
+#endif
 
 enum
 {

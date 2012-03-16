@@ -5,6 +5,8 @@
 #else
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <unistd.h>
 #include "linux.h"
 #endif
 
@@ -71,8 +73,9 @@ trim(char * buffer)
 {
     int n = strlen(buffer) - 1;
 
-    while ( !isalnum(buffer[n]) && n >= 0 )
+    while ( (isblank(buffer[n]) || isspace(buffer[n])) && n >= 0 ) {
 	buffer[n--] = '\0';
+    }
 
     return 0;
 }
