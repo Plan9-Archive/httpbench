@@ -73,7 +73,7 @@ trim(char * buffer)
 {
     int n = strlen(buffer) - 1;
 
-    while ( (isblank(buffer[n]) || isspace(buffer[n])) && n >= 0 ) {
+    while ( isspace(buffer[n]) && n >= 0 ) {
 	buffer[n--] = '\0';
     }
 
