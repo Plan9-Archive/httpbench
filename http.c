@@ -65,16 +65,19 @@ reqinit(Request *req)
 	req->status = 200;
 }
 
+void
+initresourcepath()
+{
+	resourcepath = calloc(MaxLineLen, sizeof(char));
+}
+
 int
 openresource(Request *req)
 {
-	char *path;
-
-	path = calloc(MaxLineLen, sizeof(char));
 	cleanURL(req->resource);
-	strcat(path, root);
-	strcat(path, req->resource);
-	return open(path, OREAD);
+	strcat(resourcepath, root);
+	strcat(resourcepath, req->resource);
+	return open(resourcepath, OREAD);
 }
 
 void

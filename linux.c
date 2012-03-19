@@ -18,6 +18,8 @@ main()
 	int on = 1;
 	struct sockaddr_in servaddr;
 
+	initresourcepath();
+
    	sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock < 0) {
 		printf("something wicked happened\n");

@@ -32,3 +32,4 @@ typedef struct Request {
 } Request;
 
 static char* root = "/tmp";
+char *resourcepath; // we do this to save a calloc on every request

@@ -4,6 +4,7 @@ int trim(char* buffer);
 void cleanURL(char* buffer);
 int parse(char *buf, Request *req);
 void reqinit(Request *req);
+void initresourcepath(void);
 int openresource(Request *req);
 void outputheaders(int fd, Request *req);
 int sendresource(int conn, int resource);
