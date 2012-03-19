@@ -95,13 +95,13 @@ outputheaders(int fd, Request *req)
 int
 sendresource(int conn, int resource)
 {
-    char c;
+    char c[1024];
     int  i;
 
-    while ( (i = read(resource, &c, 1)) ) {
+    while ( (i = read(resource, c, 1024)) ) {
 	if ( i < 0 )
 	    exits("Error reading from file.");
-	if ( write(conn, &c, 1) < 1 )
+	if ( write(conn, c, i) < 1 )
 	    exits("Error sending file.");
     }
 
